@@ -1,5 +1,6 @@
 import boto3
 from configparser import ConfigParser
+import redshift_connector as rdc
 
 config = ConfigParser()
 config.read('.env')
@@ -25,3 +26,7 @@ def create_bucket():
             'LocationConstraint': region
         }
     )
+
+
+def connect_to_dwh(conn_details):
+    return rdc.connect(**conn_details)
