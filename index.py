@@ -7,7 +7,7 @@ from configparser import ConfigParser
 
 
 from utils.helper import create_bucket
-from utils.helper import db_tables
+from constants import db_tables
 
 
 config = ConfigParser()
@@ -20,18 +20,18 @@ region = config['AWS']['region']
 access_key = config['AWS']['access_key']
 secret_key = config['AWS']['secret_key']
 
-host = config['AWS']['host']
-user = config['AWS']['username']
-password = config['AWS']['password']
-database = config['AWS']['database']
+host = config['DB_CRED']['host']
+user = config['DB_CRED']['username']
+password = config['DB_CRED']['password']
+database = config['DB_CRED']['database']
 
 #step 1 create a bucket using boto3
-create_bucket()
+#create_bucket()
 
 
 #step 2 Extract from database to data lake
 
-conn = create_engine('postgresql+psycopg2://{user}:{pasword}@{host}:5432/{database}')
+conn = create_engine(f'postgresql+psycopg2://{user}:{password}@{host}:5432/{database}')
 
 s3_path = 's3://{}/{}.csv'
 
